@@ -1,0 +1,96 @@
+<html>
+<head>
+<style>
+body {
+  background-image: url('back.jpg');
+}
+
+h1{
+    font-size:50px;
+    
+}
+
+</style>
+</head>
+<body>
+    <center>
+<h1 style="color:aqua">Click any where on the drums to play sound</h1>
+<div id="xy">X : - , Y : -</div>
+<hr>
+<canvas  width="700" id="cn" height="500" style="border:1px solid #d3d3d3;background-image:url('drum.png');background-size:100% 100%"></canvas>
+</center>
+<script>
+let canvasTAG = document.querySelector("canvas");
+
+canvasTAG.addEventListener("mousedown", function(e) 
+	{
+		getXY(canvasTAG, e);
+	});
+
+function getXY(canvas,event) 
+{
+let rect = canvas.getBoundingClientRect();
+var x = event.clientX - rect.left;
+
+var y = event.clientY - rect.top;
+var a=Math.floor(x)
+var b= Math.floor(y)
+
+var cordinates = "X : " + a + "px , Y : " + b+ " px"; 
+
+if(((a>=55) && (a<=203)) && ((b>=249) && (b<=385)))
+    {
+        // alert("good")
+        var tom1 = new Audio("tom-1.mp3");
+        tom1.play();
+    }
+else if(((a>=187) && (a<=318)) && ((b>148)) && (b<=223))
+    {
+    
+        var tom2 = new Audio("tom-2.mp3");
+        tom2.play();
+    }
+else if(((a>=358) && (a<=448)) && ((b>=171)) && (b<=245))
+    {
+        var tom3 = new Audio("tom-3.mp3");
+        tom3.play();
+    }
+else if(((a>=463) && (a<=588)) && ((b>=225)) && (b<=264))
+    {
+        var tom4 = new Audio("tom-4.mp3");
+        tom4.play();
+    }
+else if(((a>=199) && (a<=473)) && ((b>=204)) && (b<=446))
+    {
+        var tom5 = new Audio("tom-4.mp3");
+        tom5.play();
+    }
+else if(((a>=459) && (a<=665)) && ((b>=134)) && (b<=150))
+    {
+        var tom6 = new Audio("snare.mp3");
+        tom6.play();
+    }
+else{
+    alert("click on drums")
+}
+
+document.getElementById("xy").innerHTML=cordinates;	
+
+
+	
+var c = document.getElementById("cn");
+var ctx = c.getContext("2d");
+ctx.clearRect(0,0,c.width,c.height);
+ctx.beginPath();
+ctx.arc(x, y, 5, 0, 2 * Math.PI);
+ctx.fillStyle="red";
+ctx.fill();
+
+}
+
+</script>
+</body>
+
+
+
+</html>
