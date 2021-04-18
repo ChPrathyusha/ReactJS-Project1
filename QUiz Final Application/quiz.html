@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" type="text/css" href="quiz.css">
+</head>
+<body align="center">
+    <p style="text-align:center"><b>Please attempt all <span style="color:black" >10</span>  quetions</b></p>
+    <p> <br/><b>This window will close automatically within <span style="color:black" id="counter">60</span> second(s).</b></p>
+
+    <div id="quiz">
+        <h1 align="center">Quiz on JavaScript </h1>
+
+        <hr style="margin-bottom: 20px">
+
+        <p id="question"></p>
+
+        <div class="buttons" >
+            
+            <button id="btn0" ><span id="choice0" ></span></button>
+            <button id="btn1" ><span id="choice1"></span></button>
+            <button id="btn2" ><span id="choice2"></span></button>
+            <button id="btn3" ><span id="choice3"></span></button>
+        </div>
+
+        <hr style="margin-top: 50px">
+        <footer>
+            <p id="progress">Question x of y</p>
+        </footer>
+    
+</div>
+
+  <script >
+    // reating clock
+    function showTime() {
+    var d = new Date();
+    document.getElementById("clock").innerHTML = d.toLocaleTimeString();
+}
+setInterval(showTime, 1000);
+
+//closeing window
+function countdown() {
+
+var i = document.getElementById('counter');
+
+i.innerHTML = parseInt(i.innerHTML)-1;
+
+if (parseInt(i.innerHTML)<=0) {
+
+window.close();
+
+}
+
+}
+//alert message
+setInterval(function(){ countdown(); },1000);
+
+setInterval(function() {
+    alert('you have only 15 seconds time');
+}, 45000); 
+
+
+  </script>
+ <p >The current time on your computer is: <span style="color:black" id="clock"></span></p>
+ <script src="quiz.js"></script>
+
+  </body>
+  </html>

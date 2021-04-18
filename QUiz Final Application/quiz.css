@@ -1,0 +1,94 @@
+
+ 
+body{
+    
+    margin: 0 auto;
+    background-color:ghostwhite;
+    padding: 10px 50px 50px 50px;
+    border: 2px solid #cbcbcb;
+    font-size: 25px;
+    font-family: sans-serif;
+    color:red;
+    /* background-image: url("https://cdn-images-1.medium.com/max/1600/0*0T9eV1yszlCM4Aho.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+p{
+    font-size: 30px;
+    font-weight: 900;
+}
+ 
+h1 {
+    font-family: cursive;
+    background-color:lightskyblue;
+    font-size: 60px;
+    text-align: center;
+    color: navy;
+    padding: 2px 0px;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+ 
+#score {
+    color: #3118c2;
+    text-align: center;
+    font-size: 100px;
+    padding-top: 10%;
+    font-family: cursive;
+    
+    padding-bottom: 20%;
+}
+ 
+ #question {
+    font-family: cursive;
+    font-size: 35px;
+    color:blue;
+   
+    border-radius: 15px;
+}
+ 
+.buttons {
+    margin-top: 30px;
+    margin-left: 45%;
+
+
+
+}
+ 
+#btn0, #btn1, #btn2, #btn3 {
+    background-color:#ffa8d4;
+    width: 250px;
+    font-size: 23px;
+    color:black;
+    border: 5px solid black;
+    margin: 10px 40px 10px 0px;
+    padding: 10px 10px;
+    display: block;
+    font-style:italic;
+    font-weight: bold ;
+ 
+ 
+  border-radius: 20px;
+  
+    
+}
+ 
+#btn0:hover, #btn1:hover, #btn2:hover, #btn3:hover {
+    cursor: pointer;
+    background-color:lightseagreen;
+}
+ 
+#btn0:focus, #btn1:focus, #btn2:focus, #btn3:focus {
+    outline: 0;
+}
+ 
+#progress {
+    color: navy;
+    font-size: 23px;
+    height: 50px;;
+    background-color: lightskyblue;
+    border: 2px solid black;
+    border-radius: 20px;
+
+}
