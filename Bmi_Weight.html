@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+         
+            .style{
+
+background-color: rgb(195, 177, 211);
+}
+          .class{
+              widows: 90px;
+          }  
+        </style>
+
+        
+    </head>
+    <body class="style">
+        <div id="body" style="display:flex; margin-left: 200px; margin-top:10%;">
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">BMI_CALCULATOR</div>
+            <div class="card-body">
+             
+              <div id="mydiv1" > </div>
+            </div>
+          </div>
+
+
+
+          <div id="body" style="display:flex; margin-left: 150px;" class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+            <div class="card-header">CALCULATOR</div>
+            <div class="card-body">
+             
+              <div id="mydiv2" ></div>
+            
+            </div>
+          </div>
+        </div>
+        
+        
+    
+
+    <script type="text/babel">
+        class Hello extends React.Component{
+            render(){
+                return(
+                <div>
+                    
+                    <label class="red"  >Weight:</label>
+                    <input type="text/babel"  name="weight" placeholder="Enter in Kgs"/><br/><br/>
+                    <label class="red"  >Height:</label>
+                    <input type="text/babel"   name="feet" placeholder="Enter in feets"/><br/><br/>
+                   
+
+                    <button onClick={this.addition} > Calculate BMI </button><br/><br/>
+                    <button id="answer" type="button" class="btn btn-primary btn-block" >RESULT</button>               
+                </div>
+                )
+            }
+            addition = () =>{
+			const we = document.getElementsByName("weight")[0].value;
+			const ft = document.getElementsByName("feet")[0].value;     
+		var a=we/((ft/3.281)*(ft/3.281))
+        a=Math.round(a);
+        if(a < 16){
+		document.getElementById("answer").innerHTML = "YOU ARE UNDERWEIGHT "+a;}
+  
+   else if(a < 25 && a>16){
+    document.getElementById("answer").innerHTML ="YOU ARE NORMAL "+a
+  }
+  else if(a < 30 && a>25){
+    document.getElementById("answer").innerHTML ="YOU ARE OVER WEIGHTED "+a
+  }
+  else if (a>30){
+	document.getElementById("answer").innerHTML ="YOU ARE OBESE "+a
+  }
+            }
+
+
+        }
+
+        ReactDOM.render(<Hello/>, document.querySelector("#mydiv1"));
+        class Hello1 extends React.Component{
+            render(){
+                return(
+                <div>
+                    
+                    <label class="red"  >Inpu1:</label>
+                    <input type="text/babel"  name="first" placeholder="Enter Number1"/> <br/> <br/>
+                    <label class="red"  >Input2:</label>
+                    <input type="text/babel"  name="second" placeholder="Enter Number2"/> <br/> <br/>
+                    <button class="btn" onClick={this.addition}> + </button>
+                    <button class="btn" onClick={this.subtraction}> - </button>
+                    <button class="btn" onClick={this.multiplication}> * </button>
+                    <button class="btn" onClick={this.division}> / </button> <br/> <br/>
+                   
+                    <button id="answer1" type="button" class="btn btn-primary btn-block" >RESULT</button>
+                        
+                </div>
+                )
+            }
+            addition = () =>{
+                const first1 = document.getElementsByName("first")[0].value;
+                const second1 = document.getElementsByName("second")[0].value;
+                var first2 = parseInt(first1, 10);
+                var second2 = parseInt(second1, 10);
+                document.getElementById("answer1").innerHTML = first2+second2;
+            }
+            
+
+            subtraction = () =>{
+            const first1 = document.getElementsByName("first")[0].value;
+            const second1 = document.getElementsByName("second")[0].value;
+            document.getElementById("answer1").innerHTML = first1-second1;
+
+            }
+            
+            multiplication = () =>{
+                const first1 = document.getElementsByName("first")[0].value;
+                const second1 = document.getElementsByName("second")[0].value;
+                document.getElementById("answer1").innerHTML = first1*second1;
+            }
+            
+            division = () =>{
+                const first1 = document.getElementsByName("first")[0].value;
+                const second1 = document.getElementsByName("second")[0].value;
+                document.getElementById("answer1").innerHTML = first1/second1;
+
+
+
+            }
+
+        }
+    
+        ReactDOM.render(<Hello1/>, document.querySelector("#mydiv2"));
+    
+    </script>
+    </body>
+</html>
