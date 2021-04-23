@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>SIGNUP</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+  </head>
+
+  <body>
+    <h1 id="heading">SIGNUP</h1>
+    <div id="signin" ></div>
+    <div id="signup"></div>
+    
+  </body>
+</html>
+
+<script type="text/babel">
+
+class Signup extends React.Component{
+constructor(props){
+  super(props);
+  this.state = {uname: '', pswd: '', contact: '', dob: '', message: ''}
+}
+  render(){
+      return(
+          <div id="bd">
+          <label><input onChange={this.username} type="text" id="uname" placeholder="Enter Name" required/></label><br/>
+          <label><input onChange={this.password} type="password" id="pswd" placeholder="Enter Password" required/></label><br/>
+          <label><input onChange={this.contactnum} type="text" id="contact" placeholder="Enter Mobile No." required/></label><br/>                    
+          <label><input onChange={this.dateofbirth} type="text" id="dob" placeholder="Enter DOB" required/></label><br/>
+          <button onClick={this.displaymsg} id="sgup" name="sgup">Sign Up</button><br/>
+          <h4>Already have an account?</h4>
+          <button onClick={this.op} id="sgin" name="sgin">Sign In</button>         
+          
+          </div>
+      );
+  }
+  
+  username = (ele) => {          
+    this.setState({uname: ele.target.value});         
+
+  }
+
+  password = (ele) => {
+    this.setState({pswd: ele.target.value});
+
+  }
+
+  contactnum = (ele) => {
+    this.setState({contact: ele.target.value});
+
+  }
+
+  dateofbirth = (ele) => {
+    this.setState({dob: ele.target.value});
+
+  }
+
+
+
+  displaymsg = () =>{
+    
+    const res = "Hello  " + (this.state.uname) + "   You are successfully registered"
+    ReactDOM.render(<Message message={res} />, document.querySelector("#signup"));
+  }
+
+  op = () =>{
+      document.querySelector('#signin').style.display = 'block'
+      document.querySelector('#signup').style.display = 'none'
+      document.querySelector('#uname').value = ''
+      document.querySelector('#pswd').value = ''
+      document.querySelector('#contact').value = ''
+      document.querySelector('#dob').value = ''
+      document.querySelector('#heading').innerHTML = "SIGNIN"
+  }
+}
+
+class Message extends React.Component{
+  render(){
+    return(
+      <div>
+        <h1>{this.props.message}</h1>
+        </div>
+    );
+  }
+  
+}
+
+
+
+document.getElementById('signin').style.display = 'none'
+class Signin extends React.Component{
+  constructor(props){
+  super(props);
+  this.state={name: '', pswd: '', message: ''};
+  }
+
+  render(){
+      return(
+          <div id="bdy">                       
+          <label><input onChange={this.username} type="text" id="name" placeholder="Enter Name" required/></label><br/>
+          <label><input onChange={this.password} type="password" id="pswd" placeholder="Enter Password" required/></label><br/>
+          <button onClick={this.displaymsg}id="sgin" name="sgin">Sign In</button>   
+          <h4>Are you a new user?</h4>
+          <button onClick={this.op} id="sgup" name="sgup">Sign Up</button>
+          <div>{this.state.message}</div>                
+          
+          </div>
+      );
+  }
+  username = (ele) => {
+  this.setState({name: ele.target.value});      
+  console.log(this.state.name)       
+
+  }
+
+  password = (ele) => {
+      this.setState({pswd: ele.target.value});
+
+  }
+
+  displaymsg = () =>{
+    
+    const res ="Welcome " + (this.state.name)
+    ReactDOM.render(<Message1 message={res} />, document.querySelector("#signin"));                   
+
+  }
+
+  op = () =>{
+      document.getElementById('signin').style.display = 'none'
+      document.getElementById('signup').style.display = 'block'
+      document.getElementById('name').value = ''
+      document.getElementById('pswd').value = ''
+
+  }
+
+}
+
+class Message1 extends React.Component{
+  render(){
+    return(
+      <div>
+        <h1>{this.props.message}</h1>
+        </div>
+    );
+  }
+  
+}
+
+
+ReactDOM.render(<Signup />, document.querySelector("#signup"));
+
+ReactDOM.render(<Signin />, document.querySelector("#signin"));
+
+</script>
+  

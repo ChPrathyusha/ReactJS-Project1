@@ -1,0 +1,53 @@
+*{
+    background-image: url("background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+body{
+    margin-top: 50px;
+    margin-left: 40%;
+}
+
+input, button, div{
+    margin:15px;
+}
+
+#bd{
+    margin-top: 200px;
+    margin-left: 1%;
+}
+
+#bdy{
+    margin-top: 200px;
+    margin-left: 1%;
+}
+
+h4{
+    margin-left: 5%;
+}
+#heading{
+       
+    color: chocolate;
+    margin-left: 80px;
+    font-size: 40px;
+
+}
+
+input{
+
+    padding:5px;
+    margin:5px; 
+    margin-left:-50px;
+    width: 400px;
+    background-color: #edf1c2;
+    font-size: 20px;
+}
+
+#sgin{
+    margin-left: 12%;
+}
+
+#sgup{
+    margin-left: 12%;
+}
