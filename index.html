@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <title>TASKS</title>
+    
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    </head>
+    
+<style>
+    *{
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv5byvRx7KCQamawLaptusrWrGYkUApPtB9g&usqp=CAU');
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    #tdt{
+        margin-top: 10%;
+        margin-left:40%;
+      
+    }
+    table {
+        border: 3px solid lightseagreen;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    ::placeholder{
+        color: black;
+        font-size: 15px;
+    }
+
+    th, td {
+        border: 2px solid lightseagreen;
+        text-align: center;
+        padding: 5px;
+        color:lightseagreen;
+    }
+
+    #todotasks{
+        font-size: 20px;
+        color: black;
+    }
+
+    #btn{
+        margin-left: 30px;
+        font-size: 20px;
+        border-radius: 4px;
+        
+    }
+    h1{
+      
+        text-align: center;
+        color:yellowgreen;
+
+    }
+    h2{
+        color:goldenrod;
+    }
+
+</style>
+
+    <body>
+        <div id="root"></div>
+    </body>
+      <script type="text/babel">
+        class Index extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={tasks:[], name:'', index:-1};
+               
+            }
+
+            render(){
+                
+                return(
+                    <div>
+                        <h1>TO-DO List</h1>
+                        <div  id="tdt">
+                            <input type="text" name="name" onChange={this.setStateValue} id="todotasks"  placeholder="Add your Tasks here" value={this.state.name} />
+                            <button id="btn" type="reset" onClick={this.addele}>ADD</button>
+                            <button id="btn" type="reset" onClick={this.updateele}>Update</button>
+                            <h2>Num of to-do's left with: {this.state.tasks.length}</h2> 
+                            <table>
+
+                                <thead><tr><th>Name</th><th>Action</th></tr></thead>
+                                <tbody>
+                                {
+                                    this.state.tasks.map((t, index) =>
+                                    <tr key={index}>
+                                        <td>{t.name}</td>
+                                        <td>
+                                            <button value={index} onClick={this.delete}>Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button onClick={()=> this.Edittask(t, index)}>Edit</button>
+                                        </td>
+                                        </tr>
+                                    )
+                                }
+                                </tbody>
+                            </table> 
+                            
+                        </div>
+
+                    </div>
+
+                ); 
+            }
+            setStateValue = (ele) =>{
+			this.setState({[ele.target.name]:ele.target.value});
+		}
+
+            addele=()=>{
+                if(this.state.name==""){
+				return;
+            }
+                const t={name:this.state.name};
+                this.setState({tasks:[...this.state.tasks, t]});
+                this.setState({name:''});               
+                document.getElementsByName("todotasks")[0].value="";
+            }
+
+           
+            delete=(ele)=>{
+                const r=ele.target.value;
+                const newlist=this.state.tasks.splice(r, 1);
+                this.setState({tasks: this.state.tasks});
+               
+            }
+            Edittask = (t, index) => {
+                this.setState({name:t.name, index:index});
+            }
+            updateele=()=>{
+                const index=this.state.index;
+                const students = this.state.tasks;
+                if(index>=0){
+                    students[index] = {name:this.state.name,index:-1};
+                    this.setState({tasks:students});
+                }
+
+        }
+    }
+    ReactDOM.render(<Index/>, document.querySelector('#root'))
+
+      </script>
+
+</html>
