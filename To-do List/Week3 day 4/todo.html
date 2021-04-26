@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js" ></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> -->
+
+            <!-- Load your-custom.js React file using type="text/babel" -->
+            <style>
+                input{
+                    padding:5px;
+                    margin:5px;
+                    border-radius:5px;
+                    /* border */
+                    border:none;
+                   
+                }
+                body{
+                    background:url(images.jfif) ;
+                    background-repeat:none;
+                    background-size: cover;
+                    background-origin: content-box;
+                        }
+                
+                button{
+                    border:none;
+                    padding:4 px;
+                    background-color:rgb(108, 108, 180);
+                    text-decoration-color: antiquewhite;
+                    /* box-shadow: 1px; */
+                    border-radius: 5px;
+                    margin:2px 3px 2px;
+                    color:antiquewhite ;
+                }
+                h1{
+                    color:blue;
+                    font-style: italic;
+                }
+            </style>
+                
+        
+    </head>
+    <body>
+        <div id="Course"></div>
+        
+        <script type="text/babel" >
+            class Msg extends React.Component
+            {
+                render()
+                    {
+                       return( <h1>{this.props.msg}</h1>);
+            }
+                    
+            }
+            
+
+            class App extends React.Component
+            {
+                constructor(props){
+                    super(props);
+                    this.state={courses:[],Name:'',index:'',time:''}
+                }
+                
+                
+                render()
+                {           
+                   return(<div >
+                        <h4>Total Tasks:{this.state.courses.length}</h4>
+                        <input type="text"  name="Name" onChange={this.setName} placeholder="Enter the Task"/>
+                        <input type="text" name="time" onChange={this.setTimer} placeholder="Please enter time"/>
+                        
+                        
+                        <button onClick={this.Add} >Submit</button>
+                        <button onClick={this.updating}>update</button>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Task</td>
+                                       
+                                    </tr>    
+                                </thead>
+                                <tbody>
+                                    {
+                                    this.state.courses.map((course,index)=>
+                                    <tr key={index} ><td>{course.name}</td>
+                                        
+                                        <td><button  onClick={()=> this.edit(course,index)}>edit</button></td>
+                                        <td><button value={index} onClick={this.del}>del</button></td>
+                                        <td><button value={index} onClick={this.timer}>Timer</button></td>
+                                        
+                                        </tr>
+                                    )
+                                    }
+                                </tbody>
+                            </table>
+                        <br/>
+                        </div>);
+                }
+
+                getData = () =>
+                 {
+                    
+                    
+                    fetch('https://raw.githubusercontent.com/sujitha-msit/jsonfiles/main/js.json')
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data);
+                        this.setState({courses:data});
+                        // this.cached['courses'] = {test:"testing"}; 
+                });
+                }
+                componentDidMount() {
+                    this.getData();
+                this.interval = setInterval(() => {
+                    let index = 0;
+                    while ( index < this.state.courses.length) {
+                        var t = new Date()
+                        var time = t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds();
+                        console.log(this.state.courses[index])
+                        if (time > this.state.time ){
+                            console.log(time)
+                            console.log(this.state.time)
+
+                            this.state.courses.splice(index,1)
+                            this.setState( {courses:[...this.state.courses] })
+                        }  
+                        index++                     
+                    }
+                }, 10000);
+            }
+            componentWillUnmount() {
+                clearInterval(this.interval);
+            }
+            setTimer = ()=>
+                {
+                    const tim=document.getElementsByName("time")[0].value;
+                   
+                    this.setState({time:tim})
+                    // alert(this.state.time)
+                    
+                }
+                
+                setName = () =>
+                { 
+                   const nam=document.getElementsByName("Name")[0].value;
+                   this.setState({name:nam})
+                  
+                }
+                
+                Add =()=>
+                {
+                    if(this.state.name==='')
+                    {
+                     return;
+                    }
+                    const course={name:this.state.name}
+                    this.setState({courses:[...this.state.courses,course]})
+                    document.getElementsByName("Name")[0].value=''
+                    
+                } 
+                edit = (course, inde) =>
+                {   
+                    this.setState({name:course.name,index:inde});
+                    // console.log(course)
+                }
+
+                del=(element)=>
+                {
+                    console.log(this.state.courses)
+                    const index=element.target.value
+                    this.state.courses.splice(index,1)
+                    this.setState({courses:[...this.state.courses]})
+                }
+                updating=(element)=>
+                {
+                   
+                    const index=this.state.index
+                    // console.log("the element to be changed is")
+                    // console.log(this.state.courses[index])
+                    var course=[...this.state.courses]
+                    console.log(course[index])
+                    course[index]={name:this.state.name}
+                    console.log(course[index])
+                    this.setState({courses:[...course]})
+                    console.log(this.state.courses)
+                    
+                }
+                timer=()=>
+                {
+                    const index=this.state.index
+                    setTimeout(()=>{
+                        this.state.courses.splice(index,1)
+                        this.setState({courses:[...this.state.courses]})
+                        console.log(this.state.courses)
+                    },5000
+
+                    );
+                }
+                
+            }
+            // class App extends React.Component
+            // {
+            //     render()
+            //     {
+            //         return (
+            //             <div>
+            //             <Texting name="Weight"  placeholder="Enter your Weight"/>
+            //             <Texting name="Height"placeholder="Enter your Height"/>
+            //             <br/>
+            //             <button type="submit" onClick={this.calculate} >Submit</button>
+            //             </div>
+            //             );
+                        
+            //     }
+            //     calculate = () =>
+            //     {
+
+            //         var weigh=document.getElementByname("Weight")[0].value
+            //         console.log(weigh)
+            //         alert("calcuting the bmi")
+            //     }
+            // }
+            ReactDOM.render(<App/>,document.getElementById("Course") )
+
+        </script>
+    </body>
+</html>
