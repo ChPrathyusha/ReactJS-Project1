@@ -1,149 +1,229 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-        <title>TASKS</title>
-    
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    </head>
-    
-<style>
-    *{
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv5byvRx7KCQamawLaptusrWrGYkUApPtB9g&usqp=CAU');
-        background-attachment: fixed;
-        background-size: cover;
-    }
-    #tdt{
-        margin-top: 10%;
-        margin-left:40%;
-      
-    }
-    table {
-        border: 3px solid lightseagreen;
-        border-collapse: collapse;
-        width: 50%;
-    }
-    ::placeholder{
-        color: black;
-        font-size: 15px;
-    }
+       
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js" ></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> -->
 
-    th, td {
-        border: 2px solid lightseagreen;
-        text-align: center;
-        padding: 5px;
-        color:lightseagreen;
-    }
-
-    #todotasks{
-        font-size: 20px;
-        color: black;
-    }
-
-    #btn{
-        margin-left: 30px;
-        font-size: 20px;
-        border-radius: 4px;
-        
-    }
-    h1{
-      
-        text-align: center;
-        color:yellowgreen;
-
-    }
-    h2{
-        color:goldenrod;
-    }
-
-</style>
-
-    <body>
-        <div id="root"></div>
-    </body>
-      <script type="text/babel">
-        class Index extends React.Component{
-            constructor(props){
-                super(props);
-                this.state={tasks:[], name:'', index:-1};
-               
-            }
-
-            render(){
+            <!-- Load your-custom.js React file using type="text/babel" -->
+            <style>
+                input{
+                    padding:5px;
+                    margin:5px;
+                    border-radius:5px;
+                    /* border */
+                    border:none;
+                   
+                }
+                body{
+                    background:url(images.jfif) ;
+                    background-repeat:none;
+                    background-size: cover;
+                    background-origin: content-box;
+                        }
                 
-                return(
-                    <div>
-                        <h1>TO-DO List</h1>
-                        <div  id="tdt">
-                            <input type="text" name="name" onChange={this.setStateValue} id="todotasks"  placeholder="Add your Tasks here" value={this.state.name} />
-                            <button id="btn" type="reset" onClick={this.addele}>ADD</button>
-                            <button id="btn" type="reset" onClick={this.updateele}>Update</button>
-                            <h2>Num of to-do's left with: {this.state.tasks.length}</h2> 
-                            <table>
+                button{
+                    border:none;
+                    padding:4 px;
+                    background-color:rgb(108, 108, 180);
+                    text-decoration-color: antiquewhite;
+                    /* box-shadow: 1px; */
+                    border-radius: 5px;
+                    margin:2px 3px 2px;
+                    color:antiquewhite ;
+                }
+                h1{
+                    color:blue;
+                    font-style: italic;
+                }
+            </style>
+                
+        
+    </head>
+    <body>
+        <div id="Course"></div>
+        
+        <script type="text/babel" >
+            class Msg extends React.Component
+            {
+                render()
+                    {
+                       return( <h1>{this.props.msg}</h1>);
+            }
+                    
+            }
+            
 
-                                <thead><tr><th>Name</th><th>Action</th></tr></thead>
+            class App extends React.Component
+            {
+                constructor(props){
+                    super(props);
+                    this.state={courses:[],Name:'',index:'',time:''}
+                }
+                
+                
+                render()
+                {           
+                   return(<div >
+                        <h4>Total Tasks:{this.state.courses.length}</h4>
+                        <input type="text"  name="Name" onChange={this.setName} placeholder="Enter the Task"/>
+                        <input type="text" name="time" onChange={this.setTimer} placeholder="Please enter time"/>
+                        
+                        
+                        <button onClick={this.Add} >Submit</button>
+                        <button onClick={this.updating}>update</button>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Task</td>
+                                       
+                                    </tr>    
+                                </thead>
                                 <tbody>
-                                {
-                                    this.state.tasks.map((t, index) =>
-                                    <tr key={index}>
-                                        <td>{t.name}</td>
-                                        <td>
-                                            <button value={index} onClick={this.delete}>Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button onClick={()=> this.Edittask(t, index)}>Edit</button>
-                                        </td>
+                                    {
+                                    this.state.courses.map((course,index)=>
+                                    <tr key={index} ><td>{course.name}</td>
+                                        
+                                        <td><button  onClick={()=> this.edit(course,index)}>edit</button></td>
+                                        <td><button value={index} onClick={this.del}>del</button></td>
+                                        <td><button value={index} onClick={this.timer}>Timer</button></td>
+                                        
                                         </tr>
                                     )
-                                }
+                                    }
                                 </tbody>
-                            </table> 
-                            
-                        </div>
-
-                    </div>
-
-                ); 
-            }
-            setStateValue = (ele) =>{
-			this.setState({[ele.target.name]:ele.target.value});
-		}
-
-            addele=()=>{
-                if(this.state.name==""){
-				return;
-            }
-                const t={name:this.state.name};
-                this.setState({tasks:[...this.state.tasks, t]});
-                this.setState({name:''});               
-                document.getElementsByName("todotasks")[0].value="";
-            }
-
-           
-            delete=(ele)=>{
-                const r=ele.target.value;
-                const newlist=this.state.tasks.splice(r, 1);
-                this.setState({tasks: this.state.tasks});
-               
-            }
-            Edittask = (t, index) => {
-                this.setState({name:t.name, index:index});
-            }
-            updateele=()=>{
-                const index=this.state.index;
-                const students = this.state.tasks;
-                if(index>=0){
-                    students[index] = {name:this.state.name,index:-1};
-                    this.setState({tasks:students});
+                            </table>
+                        <br/>
+                        </div>);
                 }
 
-        }
-    }
-    ReactDOM.render(<Index/>, document.querySelector('#root'))
+                getData = () =>
+                 {
+                    
+                    
+                    fetch('https://raw.githubusercontent.com/sujitha-msit/jsonfiles/main/js.json')
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data);
+                        this.setState({courses:data});
+                        // this.cached['courses'] = {test:"testing"}; 
+                });
+                }
+                componentDidMount() {
+                    this.getData();
+                this.interval = setInterval(() => {
+                    let index = 0;
+                    while ( index < this.state.courses.length) {
+                        var t = new Date()
+                        var time = t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds();
+                        console.log(this.state.courses[index])
+                        if (time > this.state.time ){
+                            console.log(time)
+                            console.log(this.state.time)
 
-      </script>
+                            this.state.courses.splice(index,1)
+                            this.setState( {courses:[...this.state.courses] })
+                        }  
+                        index++                     
+                    }
+                }, 10000);
+            }
+            componentWillUnmount() {
+                clearInterval(this.interval);
+            }
+            setTimer = ()=>
+                {
+                    const tim=document.getElementsByName("time")[0].value;
+                   
+                    this.setState({time:tim})
+                    // alert(this.state.time)
+                    
+                }
+                
+                setName = () =>
+                { 
+                   const nam=document.getElementsByName("Name")[0].value;
+                   this.setState({name:nam})
+                  
+                }
+                
+                Add =()=>
+                {
+                    if(this.state.name==='')
+                    {
+                     return;
+                    }
+                    const course={name:this.state.name}
+                    this.setState({courses:[...this.state.courses,course]})
+                    document.getElementsByName("Name")[0].value=''
+                    
+                } 
+                edit = (course, inde) =>
+                {   
+                    this.setState({name:course.name,index:inde});
+                    // console.log(course)
+                }
 
+                del=(element)=>
+                {
+                    console.log(this.state.courses)
+                    const index=element.target.value
+                    this.state.courses.splice(index,1)
+                    this.setState({courses:[...this.state.courses]})
+                }
+                updating=(element)=>
+                {
+                   
+                    const index=this.state.index
+                    // console.log("the element to be changed is")
+                    // console.log(this.state.courses[index])
+                    var course=[...this.state.courses]
+                    console.log(course[index])
+                    course[index]={name:this.state.name}
+                    console.log(course[index])
+                    this.setState({courses:[...course]})
+                    console.log(this.state.courses)
+                    
+                }
+                timer=()=>
+                {
+                    const index=this.state.index
+                    setTimeout(()=>{
+                        this.state.courses.splice(index,1)
+                        this.setState({courses:[...this.state.courses]})
+                        console.log(this.state.courses)
+                    },5000
+
+                    );
+                }
+                
+            }
+            // class App extends React.Component
+            // {
+            //     render()
+            //     {
+            //         return (
+            //             <div>
+            //             <Texting name="Weight"  placeholder="Enter your Weight"/>
+            //             <Texting name="Height"placeholder="Enter your Height"/>
+            //             <br/>
+            //             <button type="submit" onClick={this.calculate} >Submit</button>
+            //             </div>
+            //             );
+                        
+            //     }
+            //     calculate = () =>
+            //     {
+
+            //         var weigh=document.getElementByname("Weight")[0].value
+            //         console.log(weigh)
+            //         alert("calcuting the bmi")
+            //     }
+            // }
+            ReactDOM.render(<App/>,document.getElementById("Course") )
+
+        </script>
+    </body>
 </html>
